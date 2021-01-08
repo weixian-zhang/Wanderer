@@ -1,0 +1,1 @@
+docker rmi wanderer/dolos:dolos-0.1 --force

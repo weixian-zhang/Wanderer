@@ -13,21 +13,15 @@ COPY go.sum .
 
 RUN go mod download
 
-COPY . .
+COPY /src/apps/dolos/. .
 
 # # Build the Go app
 #RUN GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o ./out . #/app/out
 RUN go build -o /app/out
 
-WORKDIR /app
-RUN go build -o /app/out/apic
+# start fresh from a smaller image
+FROM alpine:3.9
 
-# # Start fresh from a smaller image
-FROM alpine:3.12.3
+COPY --from=build_base /app/out /app/out
 
-WORKDIR /
-
-COPY --from=build_base /app/out /
-
-# Run the binary program produced by `go install`
-CMD ["/app"]
+CMD ["/app/out"]

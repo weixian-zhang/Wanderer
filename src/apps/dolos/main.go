@@ -5,10 +5,23 @@ import (
 	"os"
 )
 
+var (
+	utils Utils
+)
+
 func main() {
+	utils = Utils{}
+
 	log.SetFormatter(&log.JSONFormatter{})
 	log.SetOutput(os.Stdout)
 	log.SetReportCaller(true)
 
-	AzDiskFileIO{}.RunUseCase()
+	done := make(chan bool)
+
+	AzDiskFileIO{}.RunUseCase(done)
+
+	select {
+		case <- done:
+			return
+	}
 }

@@ -1,0 +1,1 @@
+docker build -f ../src/apps/dolos/Dockerfile -t wanderer/dolos:dolos-0.1 ../

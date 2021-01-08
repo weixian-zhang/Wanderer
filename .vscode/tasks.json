@@ -1,0 +1,51 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "go build Dolos",
+            "command": "go build",
+            "type": "shell",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/src/apps/dolos",
+                "env": {}
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Docker Build Dolos",
+            "command": "docker-build-dolos.cmd",
+            "type": "shell",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/docker",
+                "env": {}
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Docker Run Dolos",
+            "command": "docker-run-dolos.cmd",
+            "type": "shell",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/docker",
+                "env": {}
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Docker Remove Dolos",
+            "command": "docker-remove-dolos.cmd",
+            "type": "shell",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/docker",
+                "env": {}
+            },
+            "problemMatcher": []
+        },
+    ]
+}

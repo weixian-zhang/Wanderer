@@ -5,7 +5,6 @@ import (
 	"os"
 	log "github.com/sirupsen/logrus"
 	"time"
-	"strings"
 )
 
 const fileEnvVarKey string = "filepath"
@@ -19,36 +18,51 @@ func getFileName() (string) {
 
 	var filePath string = ""
 
-	for _, env := range os.Environ() {
+	val, err := utils.getEnvarVal(fileEnvVarKey)
+	log.Error(err)
 
-		kv := strings.Split(env, "=")
-
-		if kv[0] == fileEnvVarKey {
-			filePath = kv[1]
-			break
-		}
-	}
+	filePath = val
 
 	return filePath
 }
 
-func (diskFileIo AzDiskFileIO) RunUseCase() {
+func (diskFileIo AzDiskFileIO) RunUseCase(done chan bool) { //implement interface UserCaseRunner
 
+	timeticker := time.NewTicker(5 * time.Second)
+
+	go func() {
+
+		for {
+			
+			select {
+				case <- done:
+					timeticker.Stop()
+					return
+				case <- timeticker.C:
+					executeFileIOonAzDisk()
+			}
+		}
+		
+	}()
+	
+}
+
+func executeFileIOonAzDisk() {
 	filePath := getFileName()
 
-	err := writeLocalFile(filePath)
-	if hasErr(err) {
-		return
-	}
+			err := writeLocalFile(filePath)
+			if hasErr(err) {
+				return
+			}
 
-	time.Sleep(3 * time.Second)
+			time.Sleep(1 * time.Second)
 
-	content, err := readLocalFile(filePath)
-	if hasErr(err) {
-		return
-	}
+			content, err := readLocalFile(filePath)
+			if hasErr(err) {
+				return
+			}
 
-	log.Info(content)
+			log.Info(content)
 }
 
 func writeLocalFile(filePath string) error {

@@ -1,5 +1,5 @@
 package main
 
 type UserCaseRunner interface {
-	RunUseCase()
+	RunUseCase(done chan bool)
 }

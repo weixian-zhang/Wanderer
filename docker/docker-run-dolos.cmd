@@ -1,0 +1,1 @@
+docker run --rm wanderer/dolos:dolos-0.1
