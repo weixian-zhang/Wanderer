@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-dolos
+  labels:
+    app: dolos
+    usecase: azdisk-readwritelocal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dolos
+      usecase: azdisk-readwritelocal
+  template:
+    metadata:
+      labels:
+        app: dolos
+        usecase: azdisk-readwritelocal
+    spec:
+      containers:
+      - name: dolos
+        image: acrwanderer.azurecr.io/wanderer:dolos-azdisk
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name: azdiskstatic
+            mountPath: /mnt/azdisk
+        env:
+          - name: filepath
+            value: /mnt/azdisk/dolos.txt
+      volumes:
+      - name: azdiskstatic
+        azureDisk:
+          kind: Managed
+          diskName: azdisk-wanderer-dolos
+          diskURI: /subscriptions/ee611083-4581-4ba1-8116-a502d4539206/resourceGroups/rg-public-kube/providers/Microsoft.Compute/disks/azdisk-wanderer-dolos

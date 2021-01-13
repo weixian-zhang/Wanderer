@@ -1,0 +1,1 @@
+docker push acrwanderer.azurecr.io/wanderer:dolos-azdisk

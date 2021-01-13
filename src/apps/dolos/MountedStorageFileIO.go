@@ -1,10 +1,13 @@
 package main
 
 import (
+	"errors"
+	"fmt"
 	"io/ioutil"
 	"os"
-	log "github.com/sirupsen/logrus"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 const fileEnvVarKey string = "filepath"
@@ -14,16 +17,16 @@ type AzDiskFileIO struct {
 	
 }
 
-func getFileName() (string) {
-
-	var filePath string = ""
+func getFilePath() (string, error) {
 
 	val, err := utils.getEnvarVal(fileEnvVarKey)
 	log.Error(err)
 
-	filePath = val
-
-	return filePath
+	if val == "" {
+		return "", errors.New("read write file path not found in EnvVar('filepath')")
+	} else {
+		return val, nil
+	}
 }
 
 func (diskFileIo AzDiskFileIO) RunUseCase(done chan bool) { //implement interface UserCaseRunner
@@ -48,21 +51,27 @@ func (diskFileIo AzDiskFileIO) RunUseCase(done chan bool) { //implement interfac
 }
 
 func executeFileIOonAzDisk() {
-	filePath := getFileName()
+	filePath, err := getFilePath()
 
-			err := writeLocalFile(filePath)
-			if hasErr(err) {
-				return
-			}
+	if err != nil {
+		log.Error(err)
+	} else {
+		log.Info(fmt.Sprintf("AzDisk path @ %v", filePath))
+	}
+	
+	werr := writeLocalFile(filePath)
+	if hasErr(werr) {
+		return
+	}
 
-			time.Sleep(1 * time.Second)
+	time.Sleep(1 * time.Second)
 
-			content, err := readLocalFile(filePath)
-			if hasErr(err) {
-				return
-			}
+	content, err := readLocalFile(filePath)
+	if hasErr(err) {
+		return
+	}
 
-			log.Info(content)
+	log.Info(content)
 }
 
 func writeLocalFile(filePath string) error {

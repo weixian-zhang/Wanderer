@@ -47,5 +47,34 @@
             },
             "problemMatcher": []
         },
+        {
+            "label": "Docker Push Dolos",
+            "command": "docker-push-dolos.cmd",
+            "type": "shell",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/docker",
+                "env": {}
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Kube Apply Dolos",
+            "command": "kubectl apply -f deployment-dolos.yaml",
+            "dependsOn": "Kube Delete Dolos",
+            "type": "shell",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/deploy",
+                "env": {}
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Kube Delete Dolos",
+            "command": "kubectl delete deploy deployment-dolos",
+            "type": "shell",
+            "problemMatcher": []
+        },
     ]
 }
