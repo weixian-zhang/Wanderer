@@ -1,3 +1,6 @@
+#dynamic create disk
+#https://docs.microsoft.com/en-us/azure/aks/azure-disk-csi#shared-disk
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -32,5 +35,8 @@ spec:
       - name: azdiskstatic
         azureDisk:
           kind: Managed
-          diskName: azdisk-wanderer-dolos
-          diskURI: /subscriptions/ee611083-4581-4ba1-8116-a502d4539206/resourceGroups/rg-public-kube/providers/Microsoft.Compute/disks/azdisk-wanderer-dolos
+          cachingMode: None
+          readOnly: false
+          fsType: ext4
+          diskName: azdisk-static-wanderer
+          diskURI: /subscriptions/ee611083-4581-4ba1-8116-a502d4539206/resourcegroups/rg-public-kube/providers/Microsoft.Compute/disks/azdisk-static-wanderer

@@ -15,6 +15,17 @@
             "problemMatcher": []
         },
         {
+            "label": "go build Ymir",
+            "command": "go build",
+            "type": "shell",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/src/apps/ymir",
+                "env": {}
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "Docker Build Dolos",
             "command": "docker-build-dolos.cmd",
             "type": "shell",

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"os"
 	"strings"
+	"reflect"
 )
 
 type Utils struct {}
@@ -25,4 +26,18 @@ func (u Utils) getEnvarVal(key string) (string, error) {
 	} else {
 		return val, nil
 	}
+}
+
+func sliceToByteArray(t interface{}) ([]byte, error) {
+	reflectedType :=  reflect.TypeOf(t)
+
+	if reflectedType.Kind() != reflect.Slice {
+		return nil, errors.New("argument is not a slice")
+	}
+
+	// for ele := range reflectedType.Elem() {
+
+	// }
+
+	return nil, nil
 }

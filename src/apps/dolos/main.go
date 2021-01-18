@@ -18,7 +18,9 @@ func main() {
 
 	done := make(chan bool)
 
-	AzDiskFileIO{}.RunUseCase(done)
+	newHttpServer()
+
+	//AzDiskFileIO{}.RunUseCase(done)
 
 	select {
 		case <- done:
