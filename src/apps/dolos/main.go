@@ -7,6 +7,7 @@ import (
 
 var (
 	utils Utils
+	configs Configs
 )
 
 func main() {
@@ -18,9 +19,12 @@ func main() {
 
 	done := make(chan bool)
 
-	newHttpServer()
+	conf, _ := newConfig()
+	configs = conf
 
-	//AzDiskFileIO{}.RunUseCase(done)
+	AzDiskFileIO{}.RunUseCase(done)
+
+	newHttpServer()
 
 	select {
 		case <- done:

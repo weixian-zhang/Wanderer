@@ -1,0 +1,1 @@
+docker rmi acrwanderer.azurecr.io/wanderer:ymir-http --force

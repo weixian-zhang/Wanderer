@@ -1,22 +1,23 @@
 package main
 
 import (
+	"io/ioutil"
 	"net/http"
-
-	"github.com/brianvoe/gofakeit/v6"
+	//"path"
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
 	"encoding/json"
+	"fmt"
 )
 
 func newHttpServer() {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/api/books", handleGetBooks)
+	router.HandleFunc("/api/store/books", handleGetBooks)
 
 	server := &http.Server{
 		Handler: router,
-		Addr:    ":8001",
+		Addr: fmt.Sprintf(":%v", configs.Port),
 	}
 
 	log.Fatal(server.ListenAndServe())
@@ -24,33 +25,20 @@ func newHttpServer() {
 
 func handleGetBooks(w http.ResponseWriter, r *http.Request) {
 
-	var books []Book
-	
-	for i := 0; i <= 10; i++  {
-		newBook := Book{}
-		gofakeit.Struct(&newBook)
-		newBook.PublishDate = gofakeit.Date()
-		books = append(books, newBook)
-	}
-
-	jbyte, err := json.Marshal(books)
-	if err != nil {
-		log.Error(err)
-		w.Write([]byte("error occurred when retrieving books"))
+	resp, err := http.Get(configs.BookApiBaseUrl + "/api/books")
+	if LogIfError(err) {
+		w.Write([]byte(fmt.Sprintf("Unable to contact Dolos service for books. \r\n%v", err.Error())))
 		return
 	}
 
-	// var network bytes.Buffer
-	// enc := gob.NewEncoder(&network)
-	// encErr := enc.Encode(books)
-	// if encErr != nil {
-	// 	log.Error(encErr)
-	// 	w.Write([]byte("error occurred when retrieving books"))
-	// 	return
-	// }
+	defer resp.Body.Close()
 
-	_, werr := w.Write(jbyte)
-	if err != nil {
-		log.Error(werr)
-	}
+	barr, ioerr := ioutil.ReadAll(resp.Body)
+	LogIfError(ioerr)
+
+	books := &[]Book{}
+	json.Unmarshal(barr, books)
+
+	_, werr := w.Write(barr)
+	LogIfError(werr)
 }

@@ -1,0 +1,1 @@
+docker build --no-cache -f ../src/apps/ymir/Dockerfile -t acrwanderer.azurecr.io/wanderer:ymir-http ../

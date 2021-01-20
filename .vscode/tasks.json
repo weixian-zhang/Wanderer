@@ -72,19 +72,47 @@
         {
             "label": "Kube Apply Dolos",
             "command": "kubectl apply -f deployment-dolos.yaml",
-            "dependsOn": "Kube Delete Dolos",
             "type": "shell",
             "args": [],
             "options": {
-                "cwd": "${workspaceFolder}/deploy",
+                "cwd": "${workspaceFolder}/deploy/dolos",
+                "env": {}
+            },
+            "problemMatcher": []
+        },
+
+        //Ymir
+        {
+            "label": "Docker Build Ymir",
+            "command": "docker-build-ymir.cmd",
+            "type": "shell",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/docker",
                 "env": {}
             },
             "problemMatcher": []
         },
         {
-            "label": "Kube Delete Dolos",
-            "command": "kubectl delete deploy deployment-dolos",
+            "label": "Docker Remove Ymir",
+            "command": "docker-remove-ymir.cmd",
             "type": "shell",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/docker",
+                "env": {}
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Docker Push Ymir",
+            "command": "docker-push-ymir.cmd",
+            "type": "shell",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/docker",
+                "env": {}
+            },
             "problemMatcher": []
         },
     ]

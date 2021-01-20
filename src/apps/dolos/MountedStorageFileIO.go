@@ -10,7 +10,6 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const fileEnvVarKey string = "filepath"
 const content string = "file content from webapp Dolos"
 
 type AzDiskFileIO struct {
@@ -19,19 +18,16 @@ type AzDiskFileIO struct {
 
 func getFilePath() (string, error) {
 
-	val, err := utils.getEnvarVal(fileEnvVarKey)
-	log.Error(err)
-
-	if val == "" {
+	if configs.AzDiskMountFilePath == "" {
 		return "", errors.New("read write file path not found in EnvVar('filepath')")
 	} else {
-		return val, nil
+		return configs.AzDiskMountFilePath, nil
 	}
 }
 
 func (diskFileIo AzDiskFileIO) RunUseCase(done chan bool) { //implement interface UserCaseRunner
 
-	timeticker := time.NewTicker(5 * time.Second)
+	timeticker := time.NewTicker(15 * time.Second)
 
 	go func() {
 

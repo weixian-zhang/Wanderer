@@ -1,1 +1,1 @@
-docker push acrwanderer.azurecr.io/wanderer:dolos-azdisk
+docker push -f acrwanderer.azurecr.io/wanderer:dolos-azdisk

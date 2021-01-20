@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
 	"encoding/json"
+	"fmt"
 )
 
 func newHttpServer() {
@@ -16,7 +17,7 @@ func newHttpServer() {
 
 	server := &http.Server{
 		Handler: router,
-		Addr:    ":8000",
+		Addr:    fmt.Sprintf(":%v", configs.Port),
 	}
 
 	log.Fatal(server.ListenAndServe())
