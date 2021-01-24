@@ -1,1 +1,1 @@
-docker rmi acrwanderer.azurecr.io/wanderer:dolos-azdisk --force
+docker rmi acrwanderer.azurecr.io/wanderer:dolos --force

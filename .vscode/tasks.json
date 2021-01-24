@@ -80,6 +80,12 @@
             },
             "problemMatcher": []
         },
+        {
+            "label": "Kube Delete Dolos Deployment",
+            "command": "kubectl delete deploy deployment-dolos",
+            "type": "shell",
+            "problemMatcher": []
+        },
 
         //Ymir
         {

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-dolos
+  labels:
+    app: dolos
+data:
+  Port: "8000"
+  MongoConnstring: ""
+  AzDiskMountFilePath : "/mnt/azdisk/dolos.txt"

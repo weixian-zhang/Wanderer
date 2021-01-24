@@ -14,12 +14,14 @@ func newHttpServer() {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/api/books", handleGetBooks)
+	router.HandleFunc("/ready", handleReadinessProbe)
 
 	server := &http.Server{
 		Handler: router,
 		Addr:    fmt.Sprintf(":%v", configs.Port),
 	}
 
+	log.Info(fmt.Sprintf("Dolos listening to port %v", configs.Port))
 	log.Fatal(server.ListenAndServe())
 }
 
@@ -54,4 +56,8 @@ func handleGetBooks(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Error(werr)
 	}
+}
+
+func handleReadinessProbe(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Dolos ready"))
 }

@@ -1,7 +1,6 @@
 package main
 
 import (
-	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
@@ -17,12 +16,12 @@ func newConfig() (Configs, error) {
 	viper.AutomaticEnv()
 
 	rerr := viper.ReadInConfig()
-	if rerr != nil {
-		log.Error(rerr)
-		return Configs{}, rerr
-	}
+	LogIfError(rerr)
 	
-	conf := Configs{}
+	conf := Configs{
+		BookApiBaseUrl:  viper.GetString("BookApiBaseUrl"),
+		Port:  viper.GetString("Port"),
+	}
 	merr := viper.Unmarshal(&conf)
 
 	if LogIfError(merr) {

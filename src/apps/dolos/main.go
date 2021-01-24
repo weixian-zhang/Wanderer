@@ -22,7 +22,7 @@ func main() {
 	conf, _ := newConfig()
 	configs = conf
 
-	AzDiskFileIO{}.RunUseCase(done)
+	//AzDiskFileIO{}.RunUseCase(done)
 
 	newHttpServer()
 

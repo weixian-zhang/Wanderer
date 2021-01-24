@@ -22,15 +22,34 @@ spec:
     spec:
       containers:
       - name: dolos
-        image: acrwanderer.azurecr.io/wanderer:dolos-azdisk
+        image: acrwanderer.azurecr.io/wanderer:dolos
         ports:
-        - containerPort: 80
+        - containerPort: 8000
         volumeMounts:
           - name: azdiskstatic
             mountPath: /mnt/azdisk
+        livenessProbe:
+          httpGet:
+            path: /ready
+            port: 8000
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8000
+          initialDelaySeconds: 8
+          periodSeconds: 30
         env:
-          - name: filepath
-            value: /mnt/azdisk/dolos.txt
+          - name: Port
+            valueFrom:
+              configMapKeyRef:
+                key: Port
+                name: configmap-dolos
+          - name: AzDiskMountFilePath
+            valueFrom:
+              configMapKeyRef:
+                key: AzDiskMountFilePath
+                name: configmap-dolos
+          #TODO - MongoConnstring from secret
       volumes:
       - name: azdiskstatic
         azureDisk:
