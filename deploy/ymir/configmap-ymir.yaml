@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-ymir
+  labels:
+    app: ymir
+data:
+  PORT: "8000"
+  BOOKAPIBASEURL: "http://svc-dolos"

@@ -5,6 +5,6 @@ metadata:
   labels:
     app: dolos
 data:
-  Port: "8000"
+  PORT: "8000"
   MongoConnstring: ""
-  AzDiskMountFilePath : "/mnt/azdisk/dolos.txt"
+  AZDISKMOUNTFILEPATH : "/mnt/azdisk/dolos.txt"

@@ -16,7 +16,7 @@ func main() {
 	log.SetOutput(os.Stdout)
 	log.SetReportCaller(true)
 
-	conf, _ := newConfig()
+	conf := newConfig()
 	configs = conf
 
 	newHttpServer()

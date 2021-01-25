@@ -1,1 +1,1 @@
-docker build --no-cache -f ../src/apps/dolos/Dockerfile -t acrwanderer.azurecr.io/wanderer:dolos ../
+docker build --no-cache -f ../src/apps/dolos/Dockerfile -t acrwanderer.azurecr.io/wanderer:dolos-0.1 ../

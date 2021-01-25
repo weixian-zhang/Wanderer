@@ -4,35 +4,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-dolos
+  name: deployment-ymir
   labels:
-    app: dolos
+    app: ymir
     usecase: azdisk-readwritelocal
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dolos
+      app: ymir
       usecase: azdisk-readwritelocal
   template:
     metadata:
       labels:
-        app: dolos
+        app: ymir
         usecase: azdisk-readwritelocal
     spec:
       containers:
-      - name: dolos
+      - name: ymir
         imagePullPolicy: Always
-        image: acrwanderer.azurecr.io/wanderer:dolos-0.1
+        image: acrwanderer.azurecr.io/wanderer:ymir
         ports:
         - containerPort: 8000
         envFrom:
           - configMapRef:
-              name: configmap-dolos
+              name: configmap-ymir
 
-        volumeMounts:
-          - name: azdiskstatic
-            mountPath: /mnt/azdisk
         livenessProbe:
           httpGet:
             path: /ready
@@ -43,13 +40,3 @@ spec:
             port: 8000
           initialDelaySeconds: 8
           periodSeconds: 30
-          
-      volumes:
-      - name: azdiskstatic
-        azureDisk:
-          kind: Managed
-          cachingMode: None
-          readOnly: false
-          fsType: ext4
-          diskName: azdisk-static-wanderer
-          diskURI: /subscriptions/ee611083-4581-4ba1-8116-a502d4539206/resourcegroups/rg-public-kube/providers/Microsoft.Compute/disks/azdisk-static-wanderer

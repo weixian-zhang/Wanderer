@@ -1,1 +1,1 @@
-docker push -f acrwanderer.azurecr.io/wanderer:ymir-http
+docker push acrwanderer.azurecr.io/wanderer:ymir

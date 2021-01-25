@@ -12,8 +12,8 @@
             "program": "${workspaceFolder}/src/apps/dolos",
             "env": {
                 "AzDiskMountFilePath": "/mnt/azdisk/dolos.txt",
-                "Port": "8000",
-                "MongoConnstring": ""
+                "PORT": "8000",
+                "MONGOCONNSTRING": ""
             },
             "args": []
         },
@@ -24,8 +24,8 @@
             "mode": "auto",
             "program": "${workspaceFolder}/src/apps/ymir",
             "env": {
-               "Port": "8010",
-               "BookApiBaseUrl": "http://localhost:8000"
+               "PORT": "8010",
+               "BOOKAPIBASEURL": "http://localhost:8000"
             },
             "args": []
         }

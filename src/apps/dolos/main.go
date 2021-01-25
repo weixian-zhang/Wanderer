@@ -19,7 +19,7 @@ func main() {
 
 	done := make(chan bool)
 
-	conf, _ := newConfig()
+	conf := newConfig()
 	configs = conf
 
 	//AzDiskFileIO{}.RunUseCase(done)

@@ -1,1 +1,1 @@
-docker rmi acrwanderer.azurecr.io/wanderer:dolos --force
+docker rmi acrwanderer.azurecr.io/wanderer:dolos-0.1 --force

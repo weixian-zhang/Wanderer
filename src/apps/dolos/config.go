@@ -14,10 +14,10 @@ type Configs struct {
 	AzDiskMountFilePath string
 }
 
-func newConfig() (Configs, error) {
+func newConfig() (Configs) {
 
-	log.Info(fmt.Sprintf("get envvar by os Port: %v", os.Getenv("Port")))
-	log.Info(fmt.Sprintf("get envvar by os AzDiskMountFilePath: %v", os.Getenv("AzDiskMountFilePath"))) 
+	// log.Info(fmt.Sprintf("get envvar by os Port: %v", os.Getenv("Port")))
+	// log.Info(fmt.Sprintf("get envvar by os AzDiskMountFilePath: %v", os.Getenv("AzDiskMountFilePath"))) 
 	
 	viper.SetConfigName("config")
 	viper.AddConfigPath(".")
@@ -29,23 +29,27 @@ func newConfig() (Configs, error) {
 	viper.AutomaticEnv()
 	
 	conf := Configs{
-		AzDiskMountFilePath:  viper.GetString("AzDiskMountFilePath"),
-		Port:  viper.GetString("Port"),
+		AzDiskMountFilePath:  viper.GetString("AZDISKMOUNTFILEPATH"),
+		Port:  viper.GetString("PORT"),
 		MongoConnstring: viper.GetString("MongoConnstring"),
 	}
-	merr := viper.Unmarshal(&conf)
+	// merr := viper.Unmarshal(&conf)
 
 	logEnvVar(conf)
 
-	if merr != nil {
-		log.Error(merr)
-		return Configs{}, merr
-	} else {
-		return conf, nil
-	}
+	return conf
+
+	// if merr != nil {
+	// 	log.Error(merr)
+	// 	return Configs{}, merr
+	// } else {
+	// 	return conf, nil
+	// }
 }
 
 func logEnvVar(c Configs) {
 	s, _ := json.Marshal(c)
 	log.Info(fmt.Sprintf("Loaded envvars: %v", string(s)))
+
+	log.Info(os.Environ())
 }

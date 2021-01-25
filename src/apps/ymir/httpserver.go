@@ -3,17 +3,20 @@ package main
 import (
 	"io/ioutil"
 	"net/http"
+
 	//"path"
-	"github.com/gorilla/mux"
-	log "github.com/sirupsen/logrus"
 	"encoding/json"
 	"fmt"
+
+	"github.com/gorilla/mux"
+	log "github.com/sirupsen/logrus"
 )
 
 func newHttpServer() {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/api/store/books", handleGetBooks)
+	router.HandleFunc("/ready", handleReady)
 
 	server := &http.Server{
 		Handler: router,
@@ -41,4 +44,8 @@ func handleGetBooks(w http.ResponseWriter, r *http.Request) {
 
 	_, werr := w.Write(barr)
 	LogIfError(werr)
+}
+
+func handleReady(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("ready"))
 }
