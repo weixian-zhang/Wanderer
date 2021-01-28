@@ -7,18 +7,23 @@ metadata:
   name: deployment-ymir
   labels:
     app: ymir
-    usecase: azdisk-readwritelocal
+    solution: ymir #istio
+    version: v1 #istio
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: ymir
-      usecase: azdisk-readwritelocal
+      version: v1 #istio
   template:
     metadata:
       labels:
         app: ymir
-        usecase: azdisk-readwritelocal
+        version: v1 #istio
+      annotations:
+        prometheus.io/scrape: "true"   # istio: determines if a pod should be scraped. Set to true to enable scraping.
+        prometheus.io/path: /metrics # istio: determines the path to scrape metrics at. Defaults to /metrics.
+        prometheus.io/port: "8000"  # istio: determines the port to scrape metrics at. Defaults to 80.
     spec:
       containers:
       - name: ymir
@@ -26,6 +31,7 @@ spec:
         image: acrwanderer.azurecr.io/wanderer:ymir
         ports:
         - containerPort: 8000
+
         envFrom:
           - configMapRef:
               name: configmap-ymir

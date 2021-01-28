@@ -1,0 +1,110 @@
+{
+    "apiVersion": "install.istio.io/v1alpha1",
+    "kind": "IstioOperator",
+    "metadata": {
+        "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"install.istio.io/v1alpha1\",\"kind\":\"IstioOperator\",\"metadata\":{\"annotations\":{},\"name\":\"istio-control-plane\",\"namespace\":\"istio-system\"},\"spec\":{\"addonComponents\":{\"grafana\":{\"enabled\":true},\"kiali\":{\"enabled\":true},\"prometheus\":{\"enabled\":true},\"tracing\":{\"enabled\":true}},\"profile\":\"default\",\"values\":{\"global\":{\"defaultNodeSelector\":{\"beta.kubernetes.io/os\":\"linux\"}}}}}\n"
+        },
+        "creationTimestamp": "2021-01-27T13:53:30Z",
+        "deletionGracePeriodSeconds": 0,
+        "deletionTimestamp": "2021-01-27T13:54:16Z",
+        "finalizers": [
+            
+        ],
+        "generation": 2,
+        "managedFields": [
+            {
+                "apiVersion": "install.istio.io/v1alpha1",
+                "fieldsType": "FieldsV1",
+                "fieldsV1": {
+                    "f:metadata": {
+                        "f:annotations": {
+                            ".": {},
+                            "f:kubectl.kubernetes.io/last-applied-configuration": {}
+                        }
+                    },
+                    "f:spec": {
+                        ".": {},
+                        "f:addonComponents": {
+                            ".": {},
+                            "f:grafana": {
+                                ".": {},
+                                "f:enabled": {}
+                            },
+                            "f:kiali": {
+                                ".": {},
+                                "f:enabled": {}
+                            },
+                            "f:prometheus": {
+                                ".": {},
+                                "f:enabled": {}
+                            },
+                            "f:tracing": {
+                                ".": {},
+                                "f:enabled": {}
+                            }
+                        },
+                        "f:profile": {},
+                        "f:values": {
+                            ".": {},
+                            "f:global": {
+                                ".": {},
+                                "f:defaultNodeSelector": {
+                                    ".": {},
+                                    "f:beta.kubernetes.io/os": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "manager": "kubectl",
+                "operation": "Update",
+                "time": "2021-01-27T13:53:30Z"
+            },
+            {
+                "apiVersion": "install.istio.io/v1alpha1",
+                "fieldsType": "FieldsV1",
+                "fieldsV1": {
+                    "f:metadata": {
+                        "f:finalizers": {
+                            ".": {},
+                            "v:\"istio-finalizer.install.istio.io\"": {}
+                        }
+                    }
+                },
+                "manager": "operator",
+                "operation": "Update",
+                "time": "2021-01-27T13:54:07Z"
+            }
+        ],
+        "name": "istio-control-plane",
+        "namespace": "istio-system",
+        "resourceVersion": "10198305",
+        "selfLink": "/apis/install.istio.io/v1alpha1/namespaces/istio-system/istiooperators/istio-control-plane",
+        "uid": "ab663ef2-44e9-4af2-a34f-d631070b02fe"
+    },
+    "spec": {
+        "addonComponents": {
+            "grafana": {
+                "enabled": true
+            },
+            "kiali": {
+                "enabled": true
+            },
+            "prometheus": {
+                "enabled": true
+            },
+            "tracing": {
+                "enabled": true
+            }
+        },
+        "profile": "default",
+        "values": {
+            "global": {
+                "defaultNodeSelector": {
+                    "beta.kubernetes.io/os": "linux"
+                }
+            }
+        }
+    }
+}

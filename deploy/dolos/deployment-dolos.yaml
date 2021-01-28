@@ -7,18 +7,23 @@ metadata:
   name: deployment-dolos
   labels:
     app: dolos
-    usecase: azdisk-readwritelocal
+    solution: dolos #istio
+    version: v1 #istio
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: dolos
-      usecase: azdisk-readwritelocal
+      version: v1 #istio
   template:
     metadata:
       labels:
         app: dolos
-        usecase: azdisk-readwritelocal
+        version: v1 #istio
+      annotations:
+        prometheus.io/scrape: "true"   # istio: determines if a pod should be scraped. Set to true to enable scraping.
+        prometheus.io/path: /metrics # istio: determines the path to scrape metrics at. Defaults to /metrics.
+        prometheus.io/port: "8000"  # istio: determines the port to scrape metrics at. Defaults to 80.
     spec:
       containers:
       - name: dolos
@@ -26,6 +31,7 @@ spec:
         image: acrwanderer.azurecr.io/wanderer:dolos-0.1
         ports:
         - containerPort: 8000
+
         envFrom:
           - configMapRef:
               name: configmap-dolos
@@ -33,6 +39,7 @@ spec:
         volumeMounts:
           - name: azdiskstatic
             mountPath: /mnt/azdisk
+
         livenessProbe:
           httpGet:
             path: /ready
